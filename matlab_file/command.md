@@ -1,0 +1,110 @@
+Part of the continuous opt
+```matlab
+optimiser = addData(optimiser,newX,-newY) 
+suggest(optimiser, 4)
+```
+--- 
+# My Code
+Generating the optimiser
+```matlab
+tic
+for i = 1:5
+    optimiser{i} = BayesianOptimiser_BatchSequential('ardmatern52', 'AEI', bounds, X, -Y(:,i))
+end
+toc
+```
+Generating suggestions
+```matlab
+suggestion = cell(3,5)
+tic
+for i = 1:5
+    for j = 1:5
+        suggestion{1,i}{j} = suggest(optimiser{i})
+        suggestion{2,i}{j} = suggest(optimiser{i},2)
+        suggestion{3,i}{j} = suggest(optimiser{i},4)
+    end
+end
+toc
+```
+Generating suggestion for benchmarking mapping function
+```matlab
+tic
+for i = 1:6
+    for j = 1:5
+        suggestion_alt_2{i,j} = suggest(optimiser{i},4)
+    end
+end
+toc
+```
+Generating suggestions for parallel loops
+```matlab
+suggestion_parallel = cell(3, 5, 5); % Preallocate the cell array
+tic
+parfor i = 1:5
+    temp_suggestion = cell(3, 5); % Temporary storage for suggestions
+    for j = 1:5
+        temp_suggestion{1, j} = suggest(optimiser{i});
+        temp_suggestion{2, j} = suggest(optimiser{i}, 2);
+        temp_suggestion{3, j} = suggest(optimiser{i}, 4);
+    end
+    suggestion_parallel(:, i, :) = temp_suggestion; % Assign the temporary storage to the main suggestion variable
+end
+toc
+```
+Turns 3d output back to 2d output
+```matlab
+tic
+suggestion_2d = cell(3,5)
+for i = 1:3
+    for j = 1:5
+        for k = 1:5
+        suggestion_2d{i,j}{k} = suggestion_parallel{i,j,k}
+        end
+    end
+end
+toc
+```
+---
+# Old code
+```matlab
+tic
+suggestion_first = cell(3,8)
+for i = 1:3
+    for j = 1:8
+        suggestion_first{i,j} = suggestion_parallel{i,j,1}
+    end
+end
+toc
+
+for m = 1:5
+    j=2*m-1
+    next2_1(j,:) = suggest(optimiser)
+end
+
+
+suggestionSingle = zeros(8, 5);
+
+for i = 1:8
+    suggestionSingle(i, :) = suggest(optimiser); 
+end
+
+suggestionDouble = zeros(10, 5);
+
+for i = 1:5
+    suggestionResult = suggest(optimiser, 2);
+    for j = 1:2
+        rowIndex = 2*i - 1 + j - 1; % Calculate the index in suggestionQuad
+        suggestionDouble(rowIndex, :) = suggestionResult(j, :); % Assign each row from suggestionResult
+    end
+end
+
+suggestionQuad = zeros(20, 5);
+
+for i = 1:5
+    suggestionResult = suggest(optimiser, 4);
+    for j = 1:4
+        rowIndex = 4*i - 3 + j - 1; % Calculate the index in suggestionQuad
+        suggestionQuad(rowIndex, :) = suggestionResult(j, :); % Assign each row from suggestionResult
+    end
+end
+```

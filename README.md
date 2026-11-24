@@ -15,8 +15,8 @@
 - **Integrated Global Optimizer (`GODLIKE`):** Includes the hybrid global optimization toolbox `GODLIKE` (combining Genetic Algorithms, Particle Swarm Optimization, Adaptive Simulated Annealing, and Differential Evolution) for optimizing acquisition functions.
 
 ### 2. TSEMO: Thompson Sampling Efficient Multi-Objective Optimization
-- **Multi-Objective Optimization:** Efficient Pareto frontier identification across competing objectives ($f_1(\mathbf{x}), f_2(\mathbf{x}), \dots, f_m(\mathbf{x})$).
-- **Surrogate Modeling:** Utilizes Gaussian Process ($\mathcal{GP}$) regression coupled with spectral sampling for scalable Thompson sampling.
+- **Multi-Objective Optimization:** Efficient Pareto frontier identification across competing objectives ($f_1(\mathbf{x}), f_2(\mathbf{x}), \dots, f_m(\mathbf{x})$ ).
+- **Surrogate Modeling:** Utilizes Gaussian Process ($\mathcal{GP}$ ) regression coupled with spectral sampling for scalable Thompson sampling.
 - **High-Performance Acceleration:** Optimized MEX functions (`hypervolume2D`, `hypervolume3D`, `invChol`, `paretofront`) for rapid hypervolume calculation and non-dominated sorting.
 - **NSGA-II Integration:** Embedded `NGPM_v1.4` (Next Generation Pareto Master) solver for multi-objective sub-problems.
 

@@ -16,7 +16,7 @@
 
 * **Based on Eric Bradford's TS-EMO:** Incorporates the [TS-EMO MATLAB implementation](https://github.com/Eric-Bradford/TS-EMO) by Eric Bradford for efficient multi-objective optimization.
 
-* **Multi-Objective Optimization:** Efficient Pareto frontier identification across competing objectives ($f_1(\mathbf{x}), f_2(\mathbf{x}), \dots, f_m(\mathbf{x})$).
+* **Multi-Objective Optimization:** Efficient Pareto frontier identification across competing objectives ($f_1(\mathbf{x}), f_2(\mathbf{x}), \dots, f_m(\mathbf{x})$ ).
 
 * **Surrogate Modeling:** Utilizes Gaussian Process ($\mathcal{GP}$) regression coupled with spectral sampling for scalable Thompson sampling.
 
